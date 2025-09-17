@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamentos - VCar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="css/drawer.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <!-- Header será inserido via JavaScript -->
+
+    <main class="main-content">
+
+        <div class="appointments-container">
+            <div class="appointment-card">
+                <div class="appointment-header">
+                    <div class="appointment-service">Troca de Óleo</div>
+                    <div class="appointment-status confirmed">Confirmado</div>
+                </div>
+                <div class="appointment-details">
+                    <div class="appointment-date">
+                        <ion-icon name="calendar"></ion-icon>
+                        <span>15 de Julho, 2023</span>
+                    </div>
+                    <div class="appointment-time">
+                        <ion-icon name="time-outline"></ion-icon>
+                        <span>14:30</span>
+                    </div>
+                    <div class="appointment-location">
+                        <ion-icon name="location-outline"></ion-icon>
+                        <span>Oficina Central - São Paulo</span>
+                    </div>
+                </div>
+                <div class="appointment-actions">
+                    <button class="btn-secondary">Reagendar</button>
+                    <button class="btn-outline">Cancelar</button>
+                </div>
+            </div>
+
+            <div class="appointment-card">
+                <div class="appointment-header">
+                    <div class="appointment-service">Revisão Completa</div>
+                    <div class="appointment-status pending">Pendente</div>
+                </div>
+                <div class="appointment-details">
+                    <div class="appointment-date">
+                        <ion-icon name="calendar"></ion-icon>
+                        <span>22 de Julho, 2023</span>
+                    </div>
+                    <div class="appointment-time">
+                        <ion-icon name="time-outline"></ion-icon>
+                        <span>10:00</span>
+                    </div>
+                    <div class="appointment-location">
+                        <ion-icon name="location-outline"></ion-icon>
+                        <span>Oficina Central - São Paulo</span>
+                    </div>
+                </div>
+                <div class="appointment-actions">
+                    <button class="btn-secondary">Confirmar</button>
+                    <button class="btn-outline">Cancelar</button>
+                </div>
+            </div>
+
+            <div class="empty-state" style="display: none;">
+                <img src="img/empty-car.svg" alt="Calendário vazio">
+                <h3>Nenhum agendamento</h3>
+                <p>Você ainda não tem agendamentos. Agende um serviço para seu veículo.</p>
+                <button class="btn-primary">Agendar Serviço</button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Bottom Tab Navigation será inserido via JavaScript -->
+
+    <!-- Menu Drawer será inserido via JavaScript -->
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/drawer.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

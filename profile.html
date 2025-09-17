@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil - VCar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="css/drawer.css">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--primary-lighter);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            color: var(--color-primary);
+            font-size: 2.5rem;
+        }
+        
+        .profile-info h1 {
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+        }
+        
+        .profile-info p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .profile-section {
+            background-color: #fff;
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .profile-section h2 {
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .profile-section h2 ion-icon {
+            margin-right: 8px;
+            color: var(--color-primary);
+        }
+        
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--color-primary);
+            outline: none;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .form-col {
+            flex: 1;
+        }
+        
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            margin-top: 8px;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--color-primary);
+            border: 1px solid var(--color-primary);
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 8px;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-lighter);
+        }
+        
+        .section-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 16px;
+        }
+        
+        .edit-toggle {
+            background: none;
+            border: none;
+            color: var(--color-primary);
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        
+        .edit-toggle ion-icon {
+            margin-right: 4px;
+        }
+        
+        .profile-data {
+            margin-bottom: 16px;
+        }
+        
+        .profile-data-item {
+            display: flex;
+            margin-bottom: 12px;
+        }
+        
+        .profile-data-label {
+            width: 120px;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+        
+        .profile-data-value {
+            flex: 1;
+            color: var(--text-color);
+        }
+        
+        .form-section {
+            display: none;
+        }
+        
+        .form-section.active {
+            display: block;
+        }
+        
+        .view-section.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header será inserido via JavaScript -->
+    
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <div class="profile-container">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <ion-icon name="person"></ion-icon>
+                </div>
+                <div class="profile-info">
+                    <h1>João Silva</h1>
+                    <p>joao.silva@email.com</p>
+                </div>
+            </div>
+            
+            <!-- Seção de Dados Pessoais -->
+            <div class="profile-section">
+                <div class="section-header">
+                    <h2><ion-icon name="person-outline"></ion-icon> Dados Pessoais</h2>
+                    <button class="edit-toggle" data-target="personal-data">
+                        <ion-icon name="create-outline"></ion-icon> Editar
+                    </button>
+                </div>
+                
+                <!-- Visualização dos dados -->
+                <div class="view-section" id="personal-data-view">
+                    <div class="profile-data">
+                        <div class="profile-data-item">
+                            <div class="profile-data-label">Nome:</div>
+                            <div class="profile-data-value">João Silva</div>
+                        </div>
+                        <div class="profile-data-item">
+                            <div class="profile-data-label">E-mail:</div>
+                            <div class="profile-data-value">joao.silva@email.com</div>
+                        </div>
+                        <div class="profile-data-item">
+                            <div class="profile-data-label">Telefone:</div>
+                            <div class="profile-data-value">(11) 98765-4321</div>
+                        </div>
+                        <div class="profile-data-item">
+                            <div class="profile-data-label">CPF:</div>
+                            <div class="profile-data-value">123.456.789-00</div>
+                        </div>
+                        <div class="profile-data-item">
+                            <div class="profile-data-label">Data de Nasc.:</div>
+                            <div class="profile-data-value">15/05/1985</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Formulário de edição -->
+                <div class="form-section" id="personal-data-form">
+                    <form id="personal-form">
+                        <div class="form-group">
+                            <label for="name">Nome Completo</label>
+                            <input type="text" class="form-control" id="name" value="João Silva">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" class="form-control" id="email" value="joao.silva@email.com">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="phone">Telefone</label>
+                                    <input type="tel" class="form-control" id="phone" value="(11) 98765-4321">
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="cpf">CPF</label>
+                                    <input type="text" class="form-control" id="cpf" value="123.456.789-00">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="birthdate">Data de Nascimento</label>
+                            <input type="date" class="form-control" id="birthdate" value="1985-05-15">
+                        </div>
+                        <div class="section-actions">
+                            <button type="button" class="btn-outline cancel-edit" data-target="personal-data">Cancelar</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="btn-primary save-edit" data-target="personal-data">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Seção de Endereço -->
+            <div class="profile-section">
+                <div class="section-header">
+                    <h2><ion-icon name="location-outline"></ion-icon> Endereço</h2>
+                    <button class="edit-toggle" data-target="address-data">
+                        <ion-icon name="create-outline"></ion-icon> Editar
+                    </button>
+                </div>
+                
+                <!-- Visualização dos dados -->
+                <div class="view-section" id="address-data-view">
+                    <div class="profile-data">
+                        <div class="profile-data-item">
+                            <div class="profile-data-label">CEP:</div>
+                            <div class="profile-data-value">01234-567</div>
+                        </div>
+                        <div class="profile-data-item">
+                            <div class="profile-data-label">Logradouro:</div>
+                            <div class="profile-data-value">Rua das Flores</div>
+                        </div>
+                        <div class="profile-data-item">
+                            <div class="profile-data-label">Número:</div>
+                            <div class="profile-data-value">123</div>
+                        </div>
+                        <div class="profile-data-item">
+                            <div class="profile-data-label">Complemento:</div>
+                            <div class="profile-data-value">Apto 45</div>
+                        </div>
+                        <div class="profile-data-item">
+                            <div class="profile-data-label">Bairro:</div>
+                            <div class="profile-data-value">Jardim Primavera</div>
+                        </div>
+                        <div class="profile-data-item">
+                            <div class="profile-data-label">Cidade:</div>
+                            <div class="profile-data-value">São Paulo</div>
+                        </div>
+                        <div class="profile-data-item">
+                            <div class="profile-data-label">Estado:</div>
+                            <div class="profile-data-value">SP</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Formulário de edição -->
+                <div class="form-section" id="address-data-form">
+                    <form id="address-form">
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="cep">CEP</label>
+                                    <input type="text" class="form-control" id="cep" value="01234-567">
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <button type="button" class="btn-outline" id="search-cep">Buscar CEP</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="street">Logradouro</label>
+                            <input type="text" class="form-control" id="street" value="Rua das Flores">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="number">Número</label>
+                                    <input type="text" class="form-control" id="number" value="123">
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="complement">Complemento</label>
+                                    <input type="text" class="form-control" id="complement" value="Apto 45">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="neighborhood">Bairro</label>
+                            <input type="text" class="form-control" id="neighborhood" value="Jardim Primavera">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="city">Cidade</label>
+                                    <input type="text" class="form-control" id="city" value="São Paulo">
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="state">Estado</label>
+                                    <select class="form-control" id="state">
+                                        <option value="AC">AC</option>
+                                        <option value="AL">AL</option>
+                                        <option value="AP">AP</option>
+                                        <option value="AM">AM</option>
+                                        <option value="BA">BA</option>
+                                        <option value="CE">CE</option>
+                                        <option value="DF">DF</option>
+                                        <option value="ES">ES</option>
+                                        <option value="GO">GO</option>
+                                        <option value="MA">MA</option>
+                                        <option value="MT">MT</option>
+                                        <option value="MS">MS</option>
+                                        <option value="MG">MG</option>
+                                        <option value="PA">PA</option>
+                                        <option value="PB">PB</option>
+                                        <option value="PR">PR</option>
+                                        <option value="PE">PE</option>
+                                        <option value="PI">PI</option>
+                                        <option value="RJ">RJ</option>
+                                        <option value="RN">RN</option>
+                                        <option value="RS">RS</option>
+                                        <option value="RO">RO</option>
+                                        <option value="RR">RR</option>
+                                        <option value="SC">SC</option>
+                                        <option value="SP" selected>SP</option>
+                                        <option value="SE">SE</option>
+                                        <option value="TO">TO</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-actions">
+                            <button type="button" class="btn-outline cancel-edit" data-target="address-data">Cancelar</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="btn-primary save-edit" data-target="address-data">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Seção de Segurança -->
+            <div class="profile-section">
+                <div class="section-header">
+                    <h2><ion-icon name="shield-outline"></ion-icon> Segurança</h2>
+                    <button class="edit-toggle" data-target="security-data">
+                        <ion-icon name="create-outline"></ion-icon> Editar
+                    </button>
+                </div>
+                
+                <!-- Visualização dos dados -->
+                <div class="view-section" id="security-data-view">
+                    <div class="profile-data">
+                        <div class="profile-data-item">
+                            <div class="profile-data-label">Senha:</div>
+                            <div class="profile-data-value">••••••••</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Formulário de edição -->
+                <div class="form-section" id="security-data-form">
+                    <form id="security-form">
+                        <div class="form-group">
+                            <label for="current-password">Senha Atual</label>
+                            <input type="password" class="form-control" id="current-password">
+                        </div>
+                        <div class="form-group">
+                            <label for="new-password">Nova Senha</label>
+                            <input type="password" class="form-control" id="new-password">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirmar Nova Senha</label>
+                            <input type="password" class="form-control" id="confirm-password">
+                        </div>
+                        <div class="section-actions">
+                            <button type="button" class="btn-outline cancel-edit" data-target="security-data">Cancelar</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="btn-primary save-edit" data-target="security-data">Atualizar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Bottom Navigation será inserido via JavaScript -->
+    
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/drawer.js"></script>
+    <script src="js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar os botões de edição
+            const editButtons = document.querySelectorAll('.edit-toggle');
+            const cancelButtons = document.querySelectorAll('.cancel-edit');
+            const saveButtons = document.querySelectorAll('.save-edit');
+            
+            // Inicializar máscaras para os campos de formulário
+            initInputMasks();
+            
+            // Função para inicializar as máscaras nos campos
+            function initInputMasks() {
+                // Máscara para telefone: (00) 00000-0000
+                const phoneMask = IMask(document.getElementById('phone'), {
+                    mask: '(00) 00000-0000'
+                });
+                
+                // Máscara para CPF: 000.000.000-00
+                const cpfMask = IMask(document.getElementById('cpf'), {
+                    mask: '000.000.000-00'
+                });
+                
+                // Máscara para CEP: 00000-000
+                const cepMask = IMask(document.getElementById('cep'), {
+                    mask: '00000-000'
+                });
+                
+                // Máscara para número (apenas dígitos)
+                const numberMask = IMask(document.getElementById('number'), {
+                    mask: Number,
+                    min: 1,
+                    max: 99999
+                });
+            }
+            
+            // Função para alternar entre visualização e edição
+            function toggleEditMode(target, mode) {
+                const viewSection = document.getElementById(`${target}-view`);
+                const formSection = document.getElementById(`${target}-form`);
+                
+                if (mode === 'edit') {
+                    viewSection.classList.add('hidden');
+                    formSection.classList.add('active');
+                } else {
+                    viewSection.classList.remove('hidden');
+                    formSection.classList.remove('active');
+                }
+            }
+            
+            // Adicionar eventos aos botões de edição
+            editButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const target = this.getAttribute('data-target');
+                    toggleEditMode(target, 'edit');
+                });
+            });
+            
+            // Adicionar eventos aos botões de cancelar
+            cancelButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const target = this.getAttribute('data-target');
+                    toggleEditMode(target, 'view');
+                });
+            });
+            
+            // Adicionar eventos aos botões de salvar
+            saveButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const target = this.getAttribute('data-target');
+                    
+                    // Aqui você adicionaria a lógica para salvar os dados
+                    // Por enquanto, apenas simularemos o salvamento
+                    
+                    // Exibir mensagem de sucesso
+                    alert('Dados atualizados com sucesso!');
+                    
+                    // Voltar para o modo de visualização
+                    toggleEditMode(target, 'view');
+                    
+                    // Atualizar os dados exibidos (simulação)
+                    if (target === 'personal-data') {
+                        const nameInput = document.getElementById('name');
+                        const emailInput = document.getElementById('email');
+                        const phoneInput = document.getElementById('phone');
+                        const cpfInput = document.getElementById('cpf');
+                        const birthdateInput = document.getElementById('birthdate');
+                        
+                        // Formatar data para exibição
+                        const birthdate = new Date(birthdateInput.value);
+                        const formattedDate = birthdate.toLocaleDateString('pt-BR');
+                        
+                        // Atualizar os valores exibidos
+                        document.querySelector('.profile-info h1').textContent = nameInput.value;
+                        document.querySelector('.profile-info p').textContent = emailInput.value;
+                        document.querySelectorAll('.profile-data-value')[0].textContent = nameInput.value;
+                        document.querySelectorAll('.profile-data-value')[1].textContent = emailInput.value;
+                        document.querySelectorAll('.profile-data-value')[2].textContent = phoneInput.value;
+                        document.querySelectorAll('.profile-data-value')[3].textContent = cpfInput.value;
+                        document.querySelectorAll('.profile-data-value')[4].textContent = formattedDate;
+                    } else if (target === 'address-data') {
+                        const cepInput = document.getElementById('cep');
+                        const streetInput = document.getElementById('street');
+                        const numberInput = document.getElementById('number');
+                        const complementInput = document.getElementById('complement');
+                        const neighborhoodInput = document.getElementById('neighborhood');
+                        const cityInput = document.getElementById('city');
+                        const stateInput = document.getElementById('state');
+                        
+                        // Atualizar os valores exibidos
+                        const addressValues = document.querySelectorAll('#address-data-view .profile-data-value');
+                        addressValues[0].textContent = cepInput.value;
+                        addressValues[1].textContent = streetInput.value;
+                        addressValues[2].textContent = numberInput.value;
+                        addressValues[3].textContent = complementInput.value;
+                        addressValues[4].textContent = neighborhoodInput.value;
+                        addressValues[5].textContent = cityInput.value;
+                        addressValues[6].textContent = stateInput.value;
+                    }
+                });
+            });
+            
+            // Função para buscar CEP (simulação)
+            document.getElementById('search-cep').addEventListener('click', function() {
+                const cep = document.getElementById('cep').value.replace(/\D/g, '');
+                
+                if (cep.length !== 8) {
+                    alert('CEP inválido. Por favor, digite um CEP válido.');
+                    return;
+                }
+                
+                // Simulação de busca de CEP
+                setTimeout(() => {
+                    // Dados simulados
+                    if (cep === '01234567') {
+                        document.getElementById('street').value = 'Rua das Flores';
+                        document.getElementById('neighborhood').value = 'Jardim Primavera';
+                        document.getElementById('city').value = 'São Paulo';
+                        document.getElementById('state').value = 'SP';
+                        
+                        // Focar no campo número
+                        document.getElementById('number').focus();
+                    } else {
+                        alert('CEP não encontrado. Por favor, preencha os dados manualmente.');
+                    }
+                }, 1000);
+            });
+            
+            // Inicializar componentes reutilizáveis
+            if (typeof Components !== 'undefined') {
+                // Inserir header
+                Components.createHeader();
+                
+                // Inserir navegação inferior
+                Components.createBottomNav('profile');
+            }
+        });
+    </script>
+    
+    <!-- IMask para máscaras de input -->
+    <script src="https://unpkg.com/imask"></script>
+    
+    <!-- Scripts necessários para os componentes -->
+    <script src="js/components.js"></script>
+    <script src="js/drawer.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

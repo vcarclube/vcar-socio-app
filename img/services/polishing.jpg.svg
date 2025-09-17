@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#f5f5f5"/>
+  <g transform="translate(400, 300)">
+    <!-- Car silhouette -->
+    <path d="M-180,-30 L-150,-80 L150,-80 L180,-30 L180,30 L-180,30 Z" fill="#3f51b5" stroke="#333" stroke-width="5"/>
+    <!-- Windows -->
+    <path d="M-100,-80 L-70,-120 L70,-120 L100,-80" fill="none" stroke="#333" stroke-width="5"/>
+    <!-- Wheels -->
+    <circle cx="-120" cy="30" r="30" fill="#333"/>
+    <circle cx="120" cy="30" r="30" fill="#333"/>
+    <!-- Polishing effect -->
+    <path d="M-150,-50 C-100,-70 -50,-30 0,-50 C50,-70 100,-30 150,-50" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" stroke-dasharray="1,15"/>
+    <path d="M-150,-20 C-100,-40 -50,0 0,-20 C50,-40 100,0 150,-20" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" stroke-dasharray="1,15"/>
+    <!-- Polishing tool -->
+    <circle cx="-50" cy="-100" r="40" fill="#f44336" stroke="#333" stroke-width="3"/>
+    <circle cx="-50" cy="-100" r="30" fill="#e0e0e0" stroke="#333" stroke-width="2"/>
+    <rect x="-65" y="-60" width="30" height="60" rx="5" fill="#f44336" stroke="#333" stroke-width="3"/>
+    <!-- Sparkles -->
+    <path d="M50,-60 L60,-50 M40,-50 L70,-60 M55,-40 L55,-70" stroke="#ffeb3b" stroke-width="3" stroke-linecap="round"/>
+    <path d="M100,-40 L110,-30 M90,-30 L120,-40 M105,-20 L105,-50" stroke="#ffeb3b" stroke-width="3" stroke-linecap="round"/>
+    <path d="M0,-40 L10,-30 M-10,-30 L20,-40 M5,-20 L5,-50" stroke="#ffeb3b" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <text x="400" y="500" font-family="Arial" font-size="32" text-anchor="middle" fill="#333">Polimento</text>
+</svg>

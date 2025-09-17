@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviços - VCar</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/drawer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+    <!-- Header será inserido via JavaScript -->
+    
+    <!-- Modal para detalhes do serviço -->
+    <div class="modal" id="serviceOffcanvas">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="offcanvasServiceTitle">Detalhes do Serviço</h2>
+                <button class="modal-close" id="closeOffcanvas">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+            </div>
+            <div class="modal-body" id="offcanvasContent">
+                <!-- Conteúdo será preenchido dinamicamente via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <main class="main-content">
+
+        <div class="services-categories">
+            <div class="category-tabs">
+                <div class="category-tab active">Todos</div>
+                <div class="category-tab">Últimos 30 dias</div>
+                <div class="category-tab">Últimos 6 meses</div>
+                <div class="category-tab">Mais antigos</div>
+            </div>
+        </div>
+
+        <div class="services-container">
+            <div class="service-card">
+                <div class="service-info">
+                    <h3>Alinhamento e Balanceamento</h3>
+                    <p>Honda Civic - ABC-1234</p>
+                    <div class="service-details">
+                        <span><ion-icon name="calendar-outline"></ion-icon> 05/10/2023</span>
+                        <span><ion-icon name="location-outline"></ion-icon> Oficina Central</span>
+                    </div>
+                    <div class="service-price-info">
+                        <div class="price-item">
+                            <span class="price-label">Preço total</span>
+                            <span class="price-value">R$ 220,00</span>
+                        </div>
+                        <div class="price-item">
+                            <span class="price-label">Preço pago</span>
+                            <span class="price-value highlight">R$ 180,00</span>
+                        </div>
+                        <div class="price-item">
+                            <span class="price-label">Economia</span>
+                            <span class="price-value savings">R$ 40,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-actions">
+                    <div class="service-status scheduled">Agendado</div>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-info">
+                    <h3>Revisão Completa</h3>
+                    <p>Honda Civic - ABC-1234</p>
+                    <div class="service-details">
+                        <span><ion-icon name="calendar-outline"></ion-icon> 20/09/2023</span>
+                        <span><ion-icon name="location-outline"></ion-icon> Oficina Central</span>
+                    </div>
+                    <div class="service-price-info">
+                        <div class="price-item">
+                            <span class="price-label">Preço total</span>
+                            <span class="price-value">R$ 420,00</span>
+                        </div>
+                        <div class="price-item">
+                            <span class="price-label">Preço pago</span>
+                            <span class="price-value highlight">R$ 350,00</span>
+                        </div>
+                        <div class="price-item">
+                            <span class="price-label">Economia</span>
+                            <span class="price-value savings">R$ 70,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-actions">
+                    <div class="service-status in-progress">Em andamento</div>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-info">
+                    <h3>Troca de Óleo</h3>
+                    <p>Honda Civic - ABC-1234</p>
+                    <div class="service-details">
+                        <span><ion-icon name="calendar-outline"></ion-icon> 15/08/2023</span>
+                        <span><ion-icon name="location-outline"></ion-icon> Oficina Central</span>
+                    </div>
+                    <div class="service-price-info">
+                        <div class="price-item">
+                            <span class="price-label">Preço total</span>
+                            <span class="price-value">R$ 150,00</span>
+                        </div>
+                        <div class="price-item">
+                            <span class="price-label">Preço pago</span>
+                            <span class="price-value highlight">R$ 120,00</span>
+                        </div>
+                        <div class="price-item">
+                            <span class="price-label">Economia</span>
+                            <span class="price-value savings">R$ 30,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-actions">
+                    <div class="service-status completed">Concluído</div>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-info">
+                    <h3>Revisão Completa</h3>
+                    <p>Honda Civic - ABC-1234</p>
+                    <div class="service-details">
+                        <span><ion-icon name="calendar-outline"></ion-icon> 10/07/2023</span>
+                        <span><ion-icon name="location-outline"></ion-icon> Auto Center Express</span>
+                    </div>
+                    <div class="service-price-info">
+                        <div class="price-item">
+                            <span class="price-label">Preço total</span>
+                            <span class="price-value">R$ 420,00</span>
+                        </div>
+                        <div class="price-item">
+                            <span class="price-label">Preço pago</span>
+                            <span class="price-value highlight">R$ 350,00</span>
+                        </div>
+                        <div class="price-item">
+                            <span class="price-label">Economia</span>
+                            <span class="price-value savings">R$ 70,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-actions">
+                    <div class="service-status completed">Concluído</div>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-info">
+                    <h3>Alinhamento e Balanceamento</h3>
+                    <p>Honda Civic - ABC-1234</p>
+                    <div class="service-details">
+                        <span><ion-icon name="calendar-outline"></ion-icon> 05/06/2023</span>
+                        <span><ion-icon name="location-outline"></ion-icon> Oficina Central</span>
+                    </div>
+                    <div class="service-price-info">
+                        <div class="price-item">
+                            <span class="price-label">Preço total</span>
+                            <span class="price-value">R$ 220,00</span>
+                        </div>
+                        <div class="price-item">
+                            <span class="price-label">Preço pago</span>
+                            <span class="price-value highlight">R$ 180,00</span>
+                        </div>
+                        <div class="price-item">
+                            <span class="price-label">Economia</span>
+                            <span class="price-value savings">R$ 40,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-actions">
+                    <div class="service-status completed">Concluído</div>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-info">
+                    <h3>Sistema Elétrico</h3>
+                    <p>Honda Civic - ABC-1234</p>
+                    <div class="service-details">
+                        <span><ion-icon name="calendar-outline"></ion-icon> 20/05/2023</span>
+                        <span><ion-icon name="location-outline"></ion-icon> Auto Elétrica Especializada</span>
+                    </div>
+                    <div class="service-price-info">
+                        <div class="price-item">
+                            <span class="price-label">Preço total</span>
+                            <span class="price-value">R$ 280,00</span>
+                        </div>
+                        <div class="price-item">
+                            <span class="price-label">Preço pago</span>
+                            <span class="price-value highlight">R$ 220,00</span>
+                        </div>
+                        <div class="price-item">
+                            <span class="price-label">Economia</span>
+                            <span class="price-value savings">R$ 60,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-actions">
+                    <div class="service-status completed">Concluído</div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <ion-icon name="home-outline"></ion-icon>
+            <span>Início</span>
+        </a>
+        <a href="vehicles.html" class="nav-item">
+            <ion-icon name="car-outline"></ion-icon>
+            <span>Veículos</span>
+        </a>
+        <div class="nav-item central">
+            <div class="nav-circle">
+                <ion-icon name="calendar"></ion-icon>
+            </div>
+            <span>Agendar</span>
+        </div>
+        <a href="services.html" class="nav-item">
+            <ion-icon name="construct-outline"></ion-icon>
+            <span>Serviços</span>
+        </a>
+        <a href="#" class="nav-item menu-toggle">
+            <ion-icon name="menu-outline"></ion-icon>
+            <span>Menu</span>
+        </a>
+    </nav>
+
+    <!-- O Drawer Menu agora é gerenciado pelo componente DrawerMenu -->
+
+    <!-- Bottom Tab Navigation será inserido via JavaScript -->
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/drawer.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

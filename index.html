@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VCarClube - Serviços Automotivos</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/drawer.css">
+    <link rel="icon" href="img/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+    <!-- Header será inserido via JavaScript -->
+
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <!-- Barra de Pesquisa -->
+        <div class="search-container">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Buscar serviços, oficinas...">
+            </div>
+        </div>
+
+        <!-- Card de Economia -->
+        <section class="savings-card-container">
+            <div class="savings-card">
+                <div class="savings-icon">
+                    <i class="fas fa-piggy-bank"></i>
+                </div>
+                <div class="savings-info">
+                    <div class="savings-title">Você já economizou</div>
+                    <div class="savings-amount">R$ 838,72</div>
+                    <div class="savings-details">Em 4 atendimentos na nossa rede, com total segurança e certeza de não ser enganado.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Banner Principal - Carrossel -->
+        <section class="banner-section">
+            <div class="swiper banner-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="banner">
+                            <img src="https://source.unsplash.com/random/800x300/?car,mechanic" alt="Promoção VCarClube">
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="banner">
+                            <img src="https://source.unsplash.com/random/800x300/?auto,service" alt="Serviços Automotivos">
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="banner">
+                            <img src="https://source.unsplash.com/random/800x300/?car,repair" alt="Reparos Automotivos">
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+
+        <!-- Categorias - Carrossel -->
+        <section class="categories-section">
+            <h2>Categorias</h2>
+            <div class="swiper categories-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="category-item">
+                            <div class="category-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <span>Oficinas</span>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="category-item">
+                            <div class="category-icon">
+                                <i class="fas fa-oil-can"></i>
+                            </div>
+                            <span>Troca de Óleo</span>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="category-item">
+                            <div class="category-icon">
+                                <i class="fas fa-car-wash"></i>
+                            </div>
+                            <span>Lava Jato</span>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="category-item">
+                            <div class="category-icon">
+                                <i class="fas fa-truck-pickup"></i>
+                            </div>
+                            <span>Guincho</span>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="category-item">
+                            <div class="category-icon">
+                                <i class="fas fa-user-cog"></i>
+                            </div>
+                            <span>Mecânicos</span>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="category-item">
+                            <div class="category-icon">
+                                <i class="fas fa-car-battery"></i>
+                            </div>
+                            <span>Baterias</span>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="category-item">
+                            <div class="category-icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            <span>Revisão</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Serviços Próximos -->
+        <section class="services-section">
+            <div class="section-header">
+                <h2>Serviços Próximos</h2>
+                <span class="view-all">Ver todos</span>
+            </div>
+            <div class="services-container">
+                <!-- Serviço 1 -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://source.unsplash.com/random/300x200/?auto,repair" alt="Auto Center Express">
+                        <span class="distance">1.2 km</span>
+                    </div>
+                    <div class="service-info">
+                        <h3>Auto Center Express</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.8 (120)</span>
+                        </div>
+                        <p class="service-type">Oficina Mecânica • Troca de Óleo</p>
+                        <p class="delivery-time"><i class="fas fa-clock"></i> Disponível agora</p>
+                    </div>
+                </div>
+
+                <!-- Serviço 2 -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://source.unsplash.com/random/300x200/?car,wash" alt="Lava Jato Premium">
+                        <span class="distance">2.5 km</span>
+                    </div>
+                    <div class="service-info">
+                        <h3>Lava Jato Premium</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6 (85)</span>
+                        </div>
+                        <p class="service-type">Lava Jato • Polimento</p>
+                        <p class="delivery-time"><i class="fas fa-clock"></i> Disponível agora</p>
+                    </div>
+                </div>
+
+                <!-- Serviço 3 -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://source.unsplash.com/random/300x200/?mechanic" alt="João Mecânico">
+                        <span class="distance">3.0 km</span>
+                    </div>
+                    <div class="service-info">
+                        <h3>João Mecânico</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9 (210)</span>
+                        </div>
+                        <p class="service-type">Mecânico Autônomo • Atende a domicílio</p>
+                        <p class="delivery-time"><i class="fas fa-clock"></i> Disponível em 30min</p>
+                    </div>
+                </div>
+
+                <!-- Serviço 4 -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://source.unsplash.com/random/300x200/?tow,truck" alt="Guincho Rápido">
+                        <span class="distance">5.0 km</span>
+                    </div>
+                    <div class="service-info">
+                        <h3>Guincho Rápido</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.7 (95)</span>
+                        </div>
+                        <p class="service-type">Guincho • Resgate 24h</p>
+                        <p class="delivery-time"><i class="fas fa-clock"></i> Disponível agora</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mecânicos em Destaque -->
+        <section class="featured-section">
+            <div class="section-header">
+                <h2>Mecânicos em Destaque</h2>
+                <span class="view-all">Ver todos</span>
+            </div>
+            <div class="services-container">
+                <!-- Mecânico 1 -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://source.unsplash.com/random/300x200/?mechanic,worker" alt="Carlos Especialista">
+                        <span class="distance">2.8 km</span>
+                    </div>
+                    <div class="service-info">
+                        <h3>Carlos Especialista</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9 (156)</span>
+                        </div>
+                        <p class="service-type">Especialista em Injeção Eletrônica</p>
+                        <p class="delivery-time"><i class="fas fa-clock"></i> Disponível agora</p>
+                    </div>
+                </div>
+
+                <!-- Mecânico 2 -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://source.unsplash.com/random/300x200/?auto,technician" alt="Mariana Técnica">
+                        <span class="distance">3.5 km</span>
+                    </div>
+                    <div class="service-info">
+                        <h3>Mariana Técnica</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.8 (132)</span>
+                        </div>
+                        <p class="service-type">Especialista em Elétrica Automotiva</p>
+                        <p class="delivery-time"><i class="fas fa-clock"></i> Disponível em 15min</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal de Agendamento -->
+    <div class="modal" id="bookingModal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-drag-indicator"><div class="drag-handle"></div></div>
+            <div class="modal-header">
+                <h2 class="modal-title">Agendar Serviço</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="service-details">
+                    <img src="https://source.unsplash.com/random/100x100/?auto,repair" alt="Serviço">
+                    <div>
+                        <h3 id="modalServiceName">Nome do Serviço</h3>
+                        <p id="modalServiceType">Tipo de Serviço</p>
+                    </div>
+                </div>
+                <form id="bookingForm">
+                    <div class="form-group">
+                        <label>Data</label>
+                        <input type="hidden" id="serviceDate" required>
+                        <div class="date-selector-container">
+                            <div class="swiper date-swiper">
+                                <div class="swiper-wrapper" id="dateSwiperWrapper">
+                                    <!-- Datas serão geradas via JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Horário</label>
+                        <input type="hidden" id="serviceTime" required>
+                        <div class="time-selector-container">
+                            <div class="swiper time-swiper">
+                                <div class="swiper-wrapper" id="timeSwiperWrapper">
+                                    <!-- Horários serão gerados via JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="vehicleSelect">Selecione seu veículo</label>
+                        <div class="custom-select-wrapper">
+                            <select id="vehicleSelect" class="custom-select" required>
+                                <option value="" disabled selected>Selecione um veículo</option>
+                                <option value="1">Fiat Uno - ABC1234</option>
+                                <option value="2">Honda Civic - DEF5678</option>
+                                <option value="3">Toyota Corolla - GHI9012</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="serviceTypeSelect">Motivo do agendamento</label>
+                        <div class="custom-select-wrapper">
+                            <select id="serviceTypeSelect" class="custom-select" required>
+                                <option value="" disabled selected>Selecione o motivo</option>
+                                <option value="orcamento">Orçamento</option>
+                                <option value="troca_oleo">Troca de óleo</option>
+                                <option value="balanceamento">Balanceamento</option>
+                                <option value="alinhamento">Alinhamento</option>
+                                <option value="revisao">Revisão</option>
+                                <option value="freios">Manutenção de freios</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="booking-submit-btn">
+                <button type="submit" form="bookingForm" class="btn-primary">Confirmar Agendamento</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Tab Navigation será inserido via JavaScript -->
+
+    <!-- Menu Drawer será inserido via JavaScript -->
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/drawer.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

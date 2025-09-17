@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veículos - VCar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="css/drawer.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <!-- Header será inserido via JavaScript -->
+    
+    <!-- Modal para adicionar veículo -->
+    <div class="modal" id="add-vehicle-offcanvas">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-drag-indicator"><div class="drag-handle"></div></div>
+            <div class="modal-header">
+                <h2 class="modal-title">Adicionar Veículo</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-progress">
+                    <div class="progress-steps">
+                        <div class="progress-step active">
+                            <div class="step-number">1</div>
+                            <div class="step-label">Veículo</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-number">2</div>
+                            <div class="step-label">Plano</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-number">3</div>
+                            <div class="step-label">Pagamento</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <form id="add-vehicle-form">
+                    <!-- Etapa 1: Informações do Veículo -->
+                    <div class="form-step" id="step-vehicle">
+                        <div class="step-header">
+                            <h3><ion-icon name="car-outline"></ion-icon> Informações do Veículo</h3>
+                            <p class="step-description">Informe os dados básicos do seu veículo</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="vehicle-type">Tipo de Veículo</label>
+                            <div class="custom-select-wrapper">
+                                <select id="vehicle-type" class="custom-select" required>
+                                    <option value="" disabled selected>Selecione o tipo</option>
+                                    <option value="car">Carro</option>
+                                    <option value="motorcycle">Moto</option>
+                                    <option value="truck">Caminhão</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="vehicle-brand">Marca</label>
+                            <div class="custom-select-wrapper">
+                                <select id="vehicle-brand" class="custom-select" required>
+                                    <option value="" disabled selected>Selecione a marca</option>
+                                    <option value="CHEVROLET">Chevrolet</option>
+                                    <option value="FIAT">Fiat</option>
+                                    <option value="FORD">Ford</option>
+                                    <option value="HONDA">Honda</option>
+                                    <option value="HYUNDAI">Hyundai</option>
+                                    <option value="TOYOTA">Toyota</option>
+                                    <option value="VOLKSWAGEN">Volkswagen</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="vehicle-model">Modelo</label>
+                            <div class="custom-select-wrapper">
+                                <select id="vehicle-model" class="custom-select" required>
+                                    <option value="" disabled selected>Selecione o modelo</option>
+                                    <!-- Será preenchido dinamicamente com base na marca selecionada -->
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="vehicle-engine">Motor</label>
+                            <div class="custom-select-wrapper">
+                                <select id="vehicle-engine" class="custom-select" required>
+                                    <option value="" disabled selected>Selecione o motor</option>
+                                    <option value="1.0">1.0</option>
+                                    <option value="1.4">1.4</option>
+                                    <option value="1.6">1.6</option>
+                                    <option value="1.8">1.8</option>
+                                    <option value="2.0">2.0</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="vehicle-year">Ano</label>
+                            <div class="custom-select-wrapper">
+                                <select id="vehicle-year" class="custom-select" required>
+                                    <option value="" disabled selected>Selecione o ano</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2015">2015</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="vehicle-plate">Placa</label>
+                            <input type="text" id="vehicle-plate" placeholder="ABC-1234" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Etapa 2: Seleção de Plano -->
+                    <div class="form-step" id="step-plan" style="display: none;">
+                        <div class="step-header">
+                            <h3><ion-icon name="shield-checkmark-outline"></ion-icon> Escolha seu Plano</h3>
+                            <p class="step-description">Selecione o plano que melhor atende suas necessidades</p>
+                        </div>
+                        
+                        <div class="plan-options">
+                            <div class="plan-option selected">
+                                <input type="radio" name="plan" id="plan-basic" value="basic" checked style="display: none;">
+                                <div class="plan-option-header">
+                                    <div class="plan-name">Plano Básico</div>
+                                    <div class="plan-price">R$ 29,90/mês</div>
+                                </div>
+                                <ul class="plan-features">
+                                    <li><ion-icon name="checkmark-outline"></ion-icon> Troca de óleo gratuita</li>
+                                    <li><ion-icon name="checkmark-outline"></ion-icon> Desconto em revisões</li>
+                                    <li><ion-icon name="checkmark-outline"></ion-icon> Guincho 24h</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="plan-option">
+                                <input type="radio" name="plan" id="plan-premium" value="premium" style="display: none;">
+                                <div class="plan-option-header">
+                                    <div class="plan-name">Plano Premium</div>
+                                    <div class="plan-price">R$ 49,90/mês</div>
+                                </div>
+                                <ul class="plan-features">
+                                    <li><ion-icon name="checkmark-outline"></ion-icon> Todos os benefícios do Plano Básico</li>
+                                    <li><ion-icon name="checkmark-outline"></ion-icon> Lavagem mensal gratuita</li>
+                                    <li><ion-icon name="checkmark-outline"></ion-icon> Seguro contra terceiros</li>
+                                    <li><ion-icon name="checkmark-outline"></ion-icon> Assistência 24h em todo o Brasil</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="plan-option">
+                                <input type="radio" name="plan" id="plan-family" value="family" style="display: none;">
+                                <div class="plan-option-header">
+                                    <div class="plan-name">Plano Família</div>
+                                    <div class="plan-price">R$ 79,90/mês</div>
+                                </div>
+                                <ul class="plan-features">
+                                    <li><ion-icon name="checkmark-outline"></ion-icon> Todos os benefícios do Plano Premium</li>
+                                    <li><ion-icon name="checkmark-outline"></ion-icon> Até 3 veículos na mesma conta</li>
+                                    <li><ion-icon name="checkmark-outline"></ion-icon> Desconto de 15% em peças</li>
+                                    <li><ion-icon name="checkmark-outline"></ion-icon> Prioridade no agendamento</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Etapa 3: Informações de Pagamento -->
+                    <div class="form-step" id="step-payment" style="display: none;">
+                        <div class="step-header">
+                            <h3><ion-icon name="card-outline"></ion-icon> Informações de Pagamento</h3>
+                            <p class="step-description">Informe os dados para pagamento do seu plano</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Forma de Pagamento</label>
+                            <div class="payment-methods">
+                                <div class="payment-method active">
+                                    <ion-icon name="card-outline"></ion-icon>
+                                    <span>Cartão de Crédito (recorrente)</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="card-number">Número do Cartão</label>
+                            <input type="text" id="card-number" placeholder="0000 0000 0000 0000" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="card-expiry">Validade</label>
+                            <input type="text" id="card-expiry" placeholder="MM/AA" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="card-cvv">CVV</label>
+                            <input type="text" id="card-cvv" placeholder="123" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="card-name">Nome no Cartão</label>
+                            <input type="text" id="card-name" placeholder="Nome como está no cartão" class="form-control" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="booking-submit-btn">
+                <button type="button" id="vehicle-form-back" class="btn-back" style="display: none;">Voltar</button>
+                <button type="button" id="vehicle-form-next" class="btn-primary">Continuar</button>
+            </div>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1>Meus Veículos</h1>
+            <button class="add-vehicle-btn">
+                <ion-icon name="add-outline" style="color: white;"></ion-icon>
+                <span style="color: white;">Veículo</span>
+            </button>
+        </div>
+
+        <div class="vehicles-container">
+            <div class="vehicle-card">
+                <div class="vehicle-header">
+                    <div class="vehicle-title">
+                        <h3>Honda Civic - ABC-1234</h3>
+                    </div>
+                    <div class="vehicle-status active">
+                        <span>Ativo</span>
+                    </div>
+                    <div class="vehicle-options">
+                        <ion-icon name="ellipsis-vertical" class="options-icon"></ion-icon>
+                        <div class="options-dropdown">
+                            <div class="option-item">
+                                <ion-icon name="close-circle-outline"></ion-icon>
+                                <span>Cancelar</span>
+                            </div>
+                            <div class="option-item">
+                                <ion-icon name="card-outline"></ion-icon>
+                                <span>Pagar&nbsp;Faturas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vehicle-content">
+                    <div class="vehicle-info-row">
+                        <div class="vehicle-info-item">
+                            <ion-icon name="speedometer-outline"></ion-icon>
+                            <span>2.0 Litros</span>
+                        </div>
+                        <div class="vehicle-info-item">
+                            <ion-icon name="shield-checkmark-outline"></ion-icon>
+                            <span>Plano Premium</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-info-row">
+                        <div class="vehicle-info-item">
+                            <ion-icon name="cash-outline"></ion-icon>
+                            <span>R$ 89,90/mês</span>
+                        </div>
+                        <div class="vehicle-info-item">
+                            <ion-icon name="card-outline"></ion-icon>
+                            <span>Cartão de Crédito</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vehicle-card">
+                <div class="vehicle-header">
+                    <div class="vehicle-title">
+                        <h3>Toyota Corolla - DEF-5678</h3>
+                    </div>
+                    <div class="vehicle-status inactive">
+                        <span>Inativo</span>
+                    </div>
+                    <div class="vehicle-options">
+                        <ion-icon name="ellipsis-vertical" class="options-icon"></ion-icon>
+                        <div class="options-dropdown">
+                            <div class="option-item">
+                                <ion-icon name="close-circle-outline"></ion-icon>
+                                <span>Cancelar</span>
+                            </div>
+                            <div class="option-item">
+                                <ion-icon name="card-outline"></ion-icon>
+                                <span>Pagar&nbsp;Faturas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vehicle-content">
+                    <div class="vehicle-info-row">
+                        <div class="vehicle-info-item">
+                            <ion-icon name="speedometer-outline"></ion-icon>
+                            <span>1.8 Litros</span>
+                        </div>
+                        <div class="vehicle-info-item">
+                            <ion-icon name="shield-outline"></ion-icon>
+                            <span>Plano Básico</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-info-row">
+                        <div class="vehicle-info-item">
+                            <ion-icon name="cash-outline"></ion-icon>
+                            <span>R$ 59,90/mês</span>
+                        </div>
+                        <div class="vehicle-info-item">
+                            <ion-icon name="card-outline"></ion-icon>
+                            <span>Boleto Bancário</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="empty-state" style="display: none;">
+                <img src="img/empty-car.svg" alt="Nenhum veículo" width="120" height="120">
+                <h3>Nenhum veículo cadastrado</h3>
+                <p>Você ainda não tem veículos cadastrados. Adicione seu primeiro veículo.</p>
+                <button class="btn-primary">Adicionar Veículo</button>
+            </div>
+        </div>
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <ion-icon name="home-outline"></ion-icon>
+            <span>Início</span>
+        </a>
+        <a href="vehicles.html" class="nav-item">
+            <ion-icon name="car-outline"></ion-icon>
+            <span>Veículos</span>
+        </a>
+        <div class="nav-item central">
+            <div class="nav-circle">
+                <ion-icon name="calendar"></ion-icon>
+            </div>
+            <span>Agendar</span>
+        </div>
+        <a href="services.html" class="nav-item">
+            <ion-icon name="construct-outline"></ion-icon>
+            <span>Serviços</span>
+        </a>
+        <a href="#" class="nav-item menu-toggle">
+            <ion-icon name="menu-outline"></ion-icon>
+            <span>Menu</span>
+        </a>
+    </nav>
+
+    <!-- O Drawer Menu agora é gerenciado pelo componente DrawerMenu -->
+
+    <!-- Bottom Tab Navigation será inserido via JavaScript -->
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/drawer.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

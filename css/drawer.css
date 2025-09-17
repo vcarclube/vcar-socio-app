@@ -1,0 +1,529 @@
+/* Drawer Menu Styles */
+.drawer-menu {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100vh;
+    background-color: var(--color-white);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 1500; /* Aumentado para sobrepor o bottom-nav (z-index: 1000) */
+    transition: right 0.3s ease;
+    overflow-y: auto;
+}
+
+.drawer-menu.open {
+    right: 0;
+}
+
+.drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1400; /* Aumentado para sobrepor o header e bottom-nav */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.drawer-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+.drawer-user {
+    display: flex;
+    align-items: center;
+}
+
+.drawer-user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar {
+    font-size: 3.5rem;
+    margin-right: var(--spacing-sm);
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-details h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.user-details p {
+    margin: 0;
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.drawer-close {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.drawer-content {
+    padding: var(--spacing-md) 0;
+}
+
+.drawer-menu-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.drawer-item {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    margin: 0 var(--spacing-sm);
+}
+
+.drawer-item:hover {
+    background-color: var(--color-light-gray);
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.drawer-item ion-icon {
+    font-size: 1.3rem;
+    margin-right: var(--spacing-md);
+    color: var(--color-primary);
+    transition: transform 0.3s ease;
+}
+
+.drawer-item:hover ion-icon {
+    transform: scale(1.2);
+}
+
+.drawer-item span {
+    font-size: 1rem;
+    color: var(--color-dark);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+}
+
+/* Estilos para as páginas */
+.page-title {
+    text-align: center;
+    flex-grow: 1;
+}
+
+.page-title h1 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--color-white);
+}
+
+/* Estilos para a página de veículos */
+.add-vehicle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: var(--radius);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.add-vehicle-btn ion-icon {
+    margin-right: var(--spacing-xs);
+    font-size: 1.2rem;
+}
+
+.add-vehicle-btn:hover {
+    background-color: var(--color-primary-dark);
+}
+
+.vehicle-list {
+    padding: 0 var(--spacing-md);
+}
+
+.vehicle-card {
+    background-color: var(--color-white);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: var(--spacing-md);
+    overflow: hidden;
+}
+
+.vehicle-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--color-primary-light);
+    color: var(--color-primary-dark);
+}
+
+.vehicle-body {
+    display: flex;
+    padding: var(--spacing-md);
+}
+
+.vehicle-image {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-right: var(--spacing-md);
+}
+
+.vehicle-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.vehicle-details {
+    flex-grow: 1;
+}
+
+.vehicle-details h3 {
+    margin: 0 0 var(--spacing-xs) 0;
+    font-size: 1.1rem;
+    color: var(--color-dark);
+}
+
+.vehicle-info {
+    margin: 0 0 var(--spacing-xs) 0;
+    font-size: 0.9rem;
+    color: var(--color-gray);
+}
+
+.vehicle-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 var(--spacing-md) var(--spacing-md) var(--spacing-md);
+}
+
+.vehicle-actions button {
+    margin-left: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: none;
+    border-radius: var(--radius);
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.vehicle-actions button ion-icon {
+    margin-right: var(--spacing-xs);
+    font-size: 1rem;
+}
+
+.secondary-button {
+    background-color: var(--color-light-gray);
+    color: var(--color-dark);
+}
+
+.primary-button {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+/* Estilos para a página de agendamentos */
+.appointments-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md);
+}
+
+.new-appointment-btn {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: var(--radius);
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.new-appointment-btn ion-icon {
+    margin-right: var(--spacing-xs);
+}
+
+.appointment-filters {
+    display: flex;
+    overflow-x: auto;
+    padding: 0 var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.filter-chip {
+    flex-shrink: 0;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    margin-right: var(--spacing-xs);
+    background-color: var(--color-light-gray);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.filter-chip.active {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+.appointment-list {
+    padding: 0 var(--spacing-md);
+}
+
+.appointment-card {
+    background-color: var(--color-white);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: var(--spacing-md);
+    overflow: hidden;
+}
+
+.appointment-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--color-primary-light);
+    color: var(--color-primary-dark);
+}
+
+.appointment-date {
+    display: flex;
+    align-items: center;
+}
+
+.appointment-date ion-icon {
+    margin-right: var(--spacing-xs);
+}
+
+.appointment-status {
+    font-size: 0.8rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 20px;
+}
+
+.status-pending {
+    background-color: #FFF3CD;
+    color: #856404;
+}
+
+.status-confirmed {
+    background-color: #D4EDDA;
+    color: #155724;
+}
+
+.status-completed {
+    background-color: #D1ECF1;
+    color: #0C5460;
+}
+
+.status-cancelled {
+    background-color: #F8D7DA;
+    color: #721C24;
+}
+
+.appointment-body {
+    display: flex;
+    padding: var(--spacing-md);
+}
+
+.service-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-right: var(--spacing-md);
+}
+
+.service-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.appointment-details {
+    flex-grow: 1;
+}
+
+.appointment-details h3 {
+    margin: 0 0 var(--spacing-xs) 0;
+    font-size: 1.1rem;
+    color: var(--color-dark);
+}
+
+.service-type {
+    margin: 0 0 var(--spacing-xs) 0;
+    font-size: 0.9rem;
+    color: var(--color-gray);
+}
+
+.vehicle-info {
+    margin: 0 0 var(--spacing-xs) 0;
+    font-size: 0.9rem;
+    color: var(--color-gray);
+    display: flex;
+    align-items: center;
+}
+
+.vehicle-info ion-icon {
+    margin-right: var(--spacing-xs);
+}
+
+.appointment-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 var(--spacing-md) var(--spacing-md) var(--spacing-md);
+}
+
+.appointment-actions button {
+    margin-left: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: none;
+    border-radius: var(--radius);
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.appointment-actions button ion-icon {
+    margin-right: var(--spacing-xs);
+    font-size: 1rem;
+}
+
+/* Estilos para a página de serviços */
+.service-filters {
+    padding: var(--spacing-md);
+}
+
+.filter-tabs {
+    display: flex;
+    background-color: var(--color-light-gray);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.filter-tab {
+    flex: 1;
+    text-align: center;
+    padding: var(--spacing-sm);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.filter-tab.active {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+.services-history-section {
+    padding: 0 var(--spacing-md);
+}
+
+.service-history-card {
+    background-color: var(--color-white);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: var(--spacing-md);
+    overflow: hidden;
+}
+
+.service-history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--color-primary-light);
+    color: var(--color-primary-dark);
+}
+
+.service-date {
+    display: flex;
+    align-items: center;
+}
+
+.service-date ion-icon {
+    margin-right: var(--spacing-xs);
+}
+
+.service-history-body {
+    display: flex;
+    padding: var(--spacing-md);
+}
+
+.service-history-details {
+    flex-grow: 1;
+}
+
+.service-history-details h3 {
+    margin: 0 0 var(--spacing-xs) 0;
+    font-size: 1.1rem;
+    color: var(--color-dark);
+}
+
+.service-price {
+    font-weight: 500;
+    color: var(--color-primary);
+}
+
+.service-history-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 var(--spacing-md) var(--spacing-md) var(--spacing-md);
+}
+
+.service-history-actions button {
+    margin-left: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: none;
+    border-radius: var(--radius);
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.service-history-actions button ion-icon {
+    margin-right: var(--spacing-xs);
+    font-size: 1rem;
+}
