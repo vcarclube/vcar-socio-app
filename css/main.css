@@ -1,4 +1,10 @@
 /* Estilos Globais */
+/* Remover seleção azul em elementos interativos */
+a, button, input, select, textarea, [role="button"], [tabindex]:not([tabindex="-1"]) {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+
 :root {
     --savings-gradient: linear-gradient(135deg, #00a74c 0%, #00BCD4 100%);
     --category-gradient: linear-gradient(135deg, #00a74c 0%, #00BCD4 100%);
@@ -48,6 +54,8 @@
     box-sizing: border-box;
     user-select: none;
     touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
 }
 
 body {
@@ -217,6 +225,8 @@ img {
     cursor: pointer;
     color: var(--text-color);
     font-weight: 500;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
 }
 
 .location i {
@@ -234,6 +244,8 @@ img {
     font-size: 24px;
     cursor: pointer;
     color: var(--text-light);
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
 }
 
 /* Main Content */
@@ -339,6 +351,8 @@ img {
     position: relative;
     overflow: hidden;
     margin: 0 2px;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
 }
 
 .category-tab::before {
