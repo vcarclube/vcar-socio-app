@@ -109,43 +109,63 @@ function createHeader() {
 function createBottomNav(activePage) {
     const bottomNavHTML = `
     <nav class="bottom-nav">
-        <div class="nav-item ${activePage === 'home' ? 'active' : ''}">
-            <a href="index.html">
+        <div class="nav-item ${activePage === 'home' ? 'active' : ''}" data-page="index.html">
+            <div class="nav-content">
                 <ion-icon name="${activePage === 'home' ? 'home' : 'home-outline'}"></ion-icon>
                 <span>Início</span>
-            </a>
+            </div>
         </div>
-        <div class="nav-item ${activePage === 'vehicles' ? 'active' : ''}">
-            <a href="vehicles.html">
+        <div class="nav-item ${activePage === 'vehicles' ? 'active' : ''}" data-page="vehicles.html">
+            <div class="nav-content">
                 <ion-icon name="${activePage === 'vehicles' ? 'car' : 'car-outline'}"></ion-icon>
                 <span>Veículos</span>
-            </a>
+            </div>
         </div>
-        <div class="nav-item nav-item-center ${activePage === 'appointments' ? 'active' : ''}">
-            <a href="appointments.html">
+        <div class="nav-item nav-item-center ${activePage === 'appointments' ? 'active' : ''}" data-page="appointments.html">
+            <div class="nav-content">
                 <div class="center-button">
                     <ion-icon name="calendar"></ion-icon>
                 </div>
                 <span>Agendamentos</span>
-            </a>
+            </div>
         </div>
-        <div class="nav-item ${activePage === 'services' ? 'active' : ''}">
-            <a href="services.html">
+        <div class="nav-item ${activePage === 'services' ? 'active' : ''}" data-page="services.html">
+            <div class="nav-content">
                 <ion-icon name="${activePage === 'services' ? 'construct' : 'construct-outline'}"></ion-icon>
                 <span>Serviços</span>
-            </a>
+            </div>
         </div>
-        <div class="nav-item ${activePage === 'menu' ? 'active' : ''}">
-            <a href="javascript:void(0);" class="menu-toggle" onclick="if(window.drawerMenu) { window.drawerMenu.open(); } else if(window.DrawerMenu) { DrawerMenu.getInstance().open(); }">
+        <div class="nav-item ${activePage === 'menu' ? 'active' : ''}" data-action="menu">
+            <div class="nav-content">
                 <ion-icon name="${activePage === 'menu' ? 'menu' : 'menu-outline'}"></ion-icon>
                 <span>Menu</span>
-            </a>
+            </div>
         </div>
     </nav>
     `;
 
     // Inserir a navegação inferior no final do body
     document.body.insertAdjacentHTML('beforeend', bottomNavHTML);
+
+    // Adicionar eventos de clique para navegação
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const page = this.getAttribute('data-page');
+            const action = this.getAttribute('data-action');
+            
+            if (action === 'menu') {
+                // Abrir o drawer menu
+                if (window.drawerMenu) {
+                    window.drawerMenu.open();
+                } else if (window.DrawerMenu) {
+                    DrawerMenu.getInstance().open();
+                }
+            } else if (page) {
+                // Navegar para a página
+                window.location.href = page;
+            }
+        });
+    });
 
     // Adicionar efeito de pressionar ao botão central
     const centerButton = document.querySelector('.center-button');

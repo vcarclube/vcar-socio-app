@@ -24,7 +24,7 @@ function addMenuToggleEvent() {
         DrawerMenu.getInstance().setupMenuToggleEvents();
         
         // Adicionar evento específico para o botão do menu na navegação inferior
-        const menuButton = document.querySelector('.nav-item .menu-toggle');
+        const menuButton = document.querySelector('.nav-item [data-action="menu"]');
         if (menuButton) {
             console.log('Botão de menu na navegação inferior encontrado, adicionando evento');
             
@@ -34,7 +34,6 @@ function addMenuToggleEvent() {
             
             // Adicionar novo evento de clique
             newMenuButton.addEventListener('click', function(e) {
-                e.preventDefault();
                 console.log('Clique no botão de menu do bottom tab navigation');
                 // Abrir o drawer diretamente usando a instância do DrawerMenu
                 if (window.drawerMenu) {
