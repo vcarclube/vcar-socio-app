@@ -1,38 +1,19 @@
 // Script para as páginas de login e registro
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Aplicar máscaras nos campos
+    // Aplicar máscaras nos campos usando IMask
     const cpfInputs = document.querySelectorAll('input[name="cpf"]');
     cpfInputs.forEach(input => {
-        input.addEventListener('input', function(e) {
-            let value = e.target.value;
-            value = value.replace(/\D/g, ''); // Remove tudo que não é dígito
-            
-            if (value.length <= 11) {
-                // Formata o CPF: 000.000.000-00
-                value = value.replace(/^(\d{3})(\d)/, '$1.$2');
-                value = value.replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3');
-                value = value.replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d)/, '$1.$2.$3-$4');
-            }
-            
-            e.target.value = value;
+        IMask(input, {
+            mask: '000.000.000-00'
         });
     });
 
-    // Máscara para telefone
+    // Máscara para telefone usando IMask
     const phoneInput = document.getElementById('phone');
     if (phoneInput) {
-        phoneInput.addEventListener('input', function(e) {
-            let value = e.target.value;
-            value = value.replace(/\D/g, ''); // Remove tudo que não é dígito
-            
-            if (value.length <= 11) {
-                // Formata o telefone: (00) 00000-0000
-                value = value.replace(/^(\d{2})(\d)/, '($1) $2');
-                value = value.replace(/^\((\d{2})\) (\d{5})(\d)/, '($1) $2-$3');
-            }
-            
-            e.target.value = value;
+        IMask(phoneInput, {
+            mask: '(00) 00000-0000'
         });
     }
 
