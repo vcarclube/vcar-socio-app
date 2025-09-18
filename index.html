@@ -227,14 +227,14 @@
                         <div class="service-location-options">
                             <div class="location-option" id="optEstabelecimento">
                                 <input type="radio" id="localEstabelecimento" name="localAtendimento" value="estabelecimento" checked>
-                                <label for="localEstabelecimento" class="location-label">
+                                <label for="localEstabelecimento" class="location-label" style="display: flex;">
                                     <i class="fas fa-store"></i>
-                                    <span>No estabelecimento</span>
+                                    <span>Estabelecimento</span>
                                 </label>
                             </div>
                             <div class="location-option" id="optDomicilio">
                                 <input type="radio" id="localDomicilio" name="localAtendimento" value="domicilio">
-                                <label for="localDomicilio" class="location-label">
+                                <label for="localDomicilio" class="location-label" style="display: flex;">
                                     <i class="fas fa-home"></i>
                                     <span>Meu local</span>
                                 </label>
@@ -246,16 +246,16 @@
                         <div class="form-group" id="localizacaoOpcoes">
                             <label>Tipo de localização</label>
                             <div class="service-location-options">
-                                <div class="location-option">
+                                <div class="location-option" style="width: 100%;">
                                     <input type="radio" id="localizacaoAtual" name="tipoLocalizacao" value="atual" checked>
-                                    <label for="localizacaoAtual" class="location-label">
+                                    <label for="localizacaoAtual" class="location-label" style="width: 100%; display: flex;">
                                         <i class="fas fa-map-marker-alt"></i>
                                         <span>Localização atual</span>
                                     </label>
                                 </div>
-                                <div class="location-option">
+                                <div class="location-option" style="width: 100%;">
                                     <input type="radio" id="localizacaoFixa" name="tipoLocalizacao" value="fixa">
-                                    <label for="localizacaoFixa" class="location-label">
+                                    <label for="localizacaoFixa" class="location-label" style="width: 100%; display: flex;">
                                         <i class="fas fa-map-pin"></i>
                                         <span>Endereço fixo</span>
                                     </label>
@@ -285,11 +285,11 @@
                                 <input type="text" id="rua" class="form-control" placeholder="Nome da rua">
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-6">
+                                <div class="form-group">
                                     <label for="numero">Número</label>
                                     <input type="text" id="numero" class="form-control" placeholder="123">
                                 </div>
-                                <div class="form-group col-6">
+                                <div class="form-group">
                                     <label for="complemento">Complemento</label>
                                     <input type="text" id="complemento" class="form-control" placeholder="Apto, Bloco, etc">
                                 </div>
@@ -299,11 +299,11 @@
                                 <input type="text" id="bairro" class="form-control" placeholder="Nome do bairro">
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-8">
+                                <div class="form-group">
                                     <label for="cidade">Cidade</label>
                                     <input type="text" id="cidade" class="form-control" placeholder="Nome da cidade">
                                 </div>
-                                <div class="form-group col-4">
+                                <div class="form-group">
                                     <label for="estado">Estado</label>
                                     <input type="text" id="estado" class="form-control" placeholder="UF" maxlength="2">
                                 </div>

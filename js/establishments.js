@@ -3,7 +3,7 @@ const establishments = [
     {
         id: 1,
         name: "Auto Center Express",
-        image: "https://source.unsplash.com/random/300x200/?auto,repair",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlpxFY8_5RBci20jDqofLuhaUeRUhWNARHY303wyD9QQmEfYEL0FLA_I-AE6wfc8Chrfw&usqp=CAU",
         distance: "1.2 km",
         rating: 4.8,
         reviewCount: 120,
