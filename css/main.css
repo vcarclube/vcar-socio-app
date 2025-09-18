@@ -644,11 +644,43 @@ img {
     font-weight: 500;
 }
 
+/* Status de aberto/fechado */
+.service-status {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    z-index: 2;
+}
+
+.status-open {
+    background-color: var(--success-color);
+    color: var(--white);
+}
+
+.status-closed {
+    background-color: var(--error-color);
+    color: var(--white);
+}
+
 .service-info h3 {
     font-size: 18px;
     margin-bottom: var(--spacing-sm);
     font-weight: 600;
     color: var(--text-color);
+    display: flex;
+    align-items: center;
+}
+
+/* Selo de verificado */
+.verified-badge {
+    display: inline-flex;
+    margin-left: 5px;
+    color: var(--primary-color);
+    font-size: 16px;
 }
 
 .rating {
@@ -672,16 +704,97 @@ img {
     font-size: 14px;
     color: var(--text-light);
     margin-bottom: var(--spacing-sm);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.establishment-type-badge {
+    background-color: var(--primary-lighter);
+    color: var(--primary-color);
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 600;
+    margin-right: 8px;
+    display: inline-block;
 }
 
 .delivery-time {
     font-size: 14px;
     color: var(--primary-color);
     font-weight: 600;
+    display: flex;
+    align-items: center;
 }
 
 .delivery-time i {
     margin-right: 5px;
+}
+
+/* Texto de atendimento a domicílio */
+.domicilio-text {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 8px;
+    color: var(--primary-color);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Badge de atendimento a domicílio */
+.domicilio-badge {
+    display: flex;
+    align-items: center;
+    color: var(--primary-color);
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.domicilio-badge i {
+    margin-right: 5px;
+}
+
+/* Badge de atendimento no local */
+.local-badge {
+    display: flex;
+    align-items: center;
+    color: var(--primary-color);
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.local-badge i {
+    margin-right: 5px;
+}
+
+/* Horário de funcionamento */
+.service-hours {
+    font-size: 13px;
+    color: var(--text-lighter);
+    margin-top: 4px;
+    margin-bottom: 8px;
+}
+
+/* Tags de serviços */
+.service-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.service-tag {
+    background-color: var(--gray-200);
+    color: var(--text-light);
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+    font-size: 11px;
+    font-weight: 500;
 }
 
 /* Estilos para modais (agendamento, adicionar veículo e serviços) */
@@ -2078,7 +2191,6 @@ input[type="time"] {
 
 .service-details {
     display: flex;
-    flex-wrap: wrap;
     gap: var(--spacing-md);
     margin-top: var(--spacing-sm);
     font-size: 0.9rem;
@@ -2486,4 +2598,94 @@ input[type="time"] {
     .booking-submit-btn {
         max-width: 800px;
     }
+}
+
+/* Estilos para opções de local de atendimento */
+.service-location-options {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.location-option {
+    flex: 1;
+}
+
+.location-option input[type="radio"] {
+    display: none;
+}
+
+.location-label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 8px;
+    background-color: var(--gray-100);
+    border: 2px solid var(--gray-300);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    height: 100%;
+}
+
+.location-label i {
+    font-size: 18px;
+    margin-right: 6px;
+    color: var(--text-light);
+}
+
+.location-label span {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+input[type="radio"]:checked + .location-label {
+    background-color: var(--primary-lighter);
+    border-color: var(--primary-color);
+}
+
+input[type="radio"]:checked + .location-label i,
+input[type="radio"]:checked + .location-label span {
+    color: var(--primary-color);
+}
+
+/* Estilos para campos de endereço */
+.form-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.col-4 {
+    flex: 0 0 33.333333%;
+}
+
+.col-6 {
+    flex: 0 0 50%;
+}
+
+.col-8 {
+    flex: 0 0 66.666667%;
+}
+
+/* Estilos para o mapa de visualização */
+#mapPreview {
+    border: 1px solid var(--gray-300);
+    transition: all 0.3s ease;
+    border-radius: var(--radius);
+    height: 200px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+#mapPreview:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#localizacaoOpcoes .service-location-options {
+    margin-bottom: 10px;
 }

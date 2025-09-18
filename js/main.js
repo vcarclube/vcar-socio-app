@@ -39,6 +39,21 @@ document.addEventListener('DOMContentLoaded', () => {
         // quando o script drawer.js é carregado
     }
     
+    // Inicializar evento para buscar CEP
+    const cepInput = document.getElementById('cep');
+    if (cepInput) {
+        cepInput.addEventListener('blur', buscarCepApi);
+        
+        // Adicionar máscara para o CEP
+        cepInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 5) {
+                value = value.substring(0, 5) + '-' + value.substring(5, 8);
+            }
+            e.target.value = value;
+        });
+    }
+    
     // Chamar funções de inicialização apenas se estiverem disponíveis
     if (typeof initServiceCards === 'function') initServiceCards();
     if (typeof initModal === 'function') initModal();
@@ -864,11 +879,8 @@ function initServiceCards() {
 
     // Se estamos na página inicial, configurar os cards para abrir o modal de agendamento
     if (!isServicePage) {
-        serviceCards.forEach(card => {
-            card.addEventListener('click', () => {
-                openBookingModal(card);
-            });
-        });
+        // Nota: Os event listeners para os cards são adicionados diretamente na função renderEstablishments
+        // Isso é necessário porque os cards são gerados dinamicamente
         return;
     }
 
@@ -1289,12 +1301,23 @@ function openBookingModal(serviceCardOrName, serviceType) {
         return;
     }
 
+    let atendeADomicilio = false;
+    let atendePontoProprio = false;
+
     // Verificar se o primeiro parâmetro é um elemento HTML (card) ou uma string (nome do serviço)
     if (serviceCardOrName instanceof HTMLElement) {
         // É um card, extrair as informações
         const card = serviceCardOrName;
         const serviceNameElement = card.querySelector('h3');
         const serviceTypeElement = card.querySelector('.service-type');
+        const serviceImageElement = card.querySelector('.service-image img');
+
+        // Verificar se o estabelecimento atende a domicílio e/ou no ponto próprio
+        const domicilioBadge = card.querySelector('.domicilio-badge');
+        const localBadge = card.querySelector('.local-badge');
+        
+        atendeADomicilio = domicilioBadge !== null;
+        atendePontoProprio = localBadge !== null;
 
         if (serviceNameElement && serviceTypeElement) {
             const serviceName = serviceNameElement.textContent;
@@ -1302,6 +1325,11 @@ function openBookingModal(serviceCardOrName, serviceType) {
 
             modalServiceName.textContent = serviceName;
             modalServiceType.textContent = serviceTypeText;
+            
+            // Atualizar a imagem do estabelecimento no modal
+            if (serviceImageElement && bookingModal.querySelector('.service-details img')) {
+                bookingModal.querySelector('.service-details img').src = serviceImageElement.src;
+            }
         }
     } else {
         // É um nome de serviço direto
@@ -1331,6 +1359,75 @@ function openBookingModal(serviceCardOrName, serviceType) {
 
     // Inicializar os swipers de data e hora
     initDateTimeSwiper();
+    
+    // Configurar opções de local de atendimento
+    const localAtendimentoGroup = document.getElementById('localAtendimentoGroup');
+    const optEstabelecimento = document.getElementById('optEstabelecimento');
+    const optDomicilio = document.getElementById('optDomicilio');
+    const enderecoDomicilioGroup = document.getElementById('enderecoDomicilioGroup');
+    
+    // Mostrar/esconder opções de local de atendimento com base nas propriedades do estabelecimento
+    if (atendeADomicilio && atendePontoProprio) {
+        // Mostrar ambas as opções
+        localAtendimentoGroup.style.display = 'block';
+        optEstabelecimento.style.display = 'block';
+        optDomicilio.style.display = 'block';
+        
+        // Configurar evento para mostrar/esconder campos de endereço
+        document.getElementById('localEstabelecimento').addEventListener('change', function() {
+            enderecoDomicilioGroup.style.display = 'none';
+        });
+        
+        document.getElementById('localDomicilio').addEventListener('change', function() {
+            enderecoDomicilioGroup.style.display = 'block';
+            // Tentar obter a localização do usuário
+            getGeolocation();
+            
+            // Configurar eventos para alternar entre localização atual e endereço fixo
+            document.getElementById('localizacaoAtual').addEventListener('change', function() {
+                document.getElementById('localizacaoAtualGroup').style.display = 'block';
+                document.getElementById('localizacaoFixaGroup').style.display = 'none';
+                getGeolocation();
+            });
+            
+            document.getElementById('localizacaoFixa').addEventListener('change', function() {
+                document.getElementById('localizacaoAtualGroup').style.display = 'none';
+                document.getElementById('localizacaoFixaGroup').style.display = 'block';
+            });
+        });
+    } else if (atendeADomicilio) {
+        // Mostrar apenas opção de domicílio
+        localAtendimentoGroup.style.display = 'block';
+        optEstabelecimento.style.display = 'none';
+        optDomicilio.style.display = 'block';
+        document.getElementById('localDomicilio').checked = true;
+        enderecoDomicilioGroup.style.display = 'block';
+        // Tentar obter a localização do usuário
+        getGeolocation();
+        
+        // Configurar eventos para alternar entre localização atual e endereço fixo
+        document.getElementById('localizacaoAtual').addEventListener('change', function() {
+            document.getElementById('localizacaoAtualGroup').style.display = 'block';
+            document.getElementById('localizacaoFixaGroup').style.display = 'none';
+            getGeolocation();
+        });
+        
+        document.getElementById('localizacaoFixa').addEventListener('change', function() {
+            document.getElementById('localizacaoAtualGroup').style.display = 'none';
+            document.getElementById('localizacaoFixaGroup').style.display = 'block';
+        });
+    } else if (atendePontoProprio) {
+        // Mostrar apenas opção de estabelecimento
+        localAtendimentoGroup.style.display = 'block';
+        optEstabelecimento.style.display = 'block';
+        optDomicilio.style.display = 'none';
+        document.getElementById('localEstabelecimento').checked = true;
+        enderecoDomicilioGroup.style.display = 'none';
+    } else {
+        // Não mostrar opções de local
+        localAtendimentoGroup.style.display = 'none';
+        enderecoDomicilioGroup.style.display = 'none';
+    }
 
     // Abrir modal com animação
     bookingModal.classList.add('active');
@@ -1341,6 +1438,194 @@ function openBookingModal(serviceCardOrName, serviceType) {
     if (modalContent) {
         modalContent.style.transform = 'translateY(0)';
     }
+}
+
+// Função para obter a geolocalização do usuário
+function getGeolocation() {
+    const mapPreview = document.getElementById('mapPreview');
+    let map = null;
+    let marker = null;
+    
+    if (mapPreview) {
+        mapPreview.innerHTML = '<span>Carregando sua localização...</span>';
+    }
+    
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                // Sucesso - preencher os campos de latitude e longitude
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                
+                // Adicionar campos ocultos para latitude e longitude se não existirem
+                if (!document.getElementById('latitude')) {
+                    const latInput = document.createElement('input');
+                    latInput.type = 'hidden';
+                    latInput.id = 'latitude';
+                    latInput.name = 'latitude';
+                    document.getElementById('bookingForm').appendChild(latInput);
+                }
+                
+                if (!document.getElementById('longitude')) {
+                    const lngInput = document.createElement('input');
+                    lngInput.type = 'hidden';
+                    lngInput.id = 'longitude';
+                    lngInput.name = 'longitude';
+                    document.getElementById('bookingForm').appendChild(lngInput);
+                }
+                
+                document.getElementById('latitude').value = latitude;
+                document.getElementById('longitude').value = longitude;
+                console.log('Localização obtida:', latitude, longitude);
+                
+                // Atualizar a visualização do mapa com OpenStreetMap
+                if (mapPreview) {
+                    // Limpar o conteúdo anterior
+                    mapPreview.innerHTML = '';
+                    mapPreview.style.height = '200px';
+                    
+                    // Inicializar o mapa
+                    map = L.map(mapPreview).setView([latitude, longitude], 15);
+                    
+                    // Adicionar camada de tiles do OpenStreetMap
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(map);
+                    
+                    // Adicionar marcador na localização atual
+                    marker = L.marker([latitude, longitude]).addTo(map)
+                        .bindPopup('Sua localização atual')
+                        .openPopup();
+                }
+            },
+            function(error) {
+                // Erro - exibir mensagem adequada
+                console.error('Erro ao obter localização:', error.message);
+                
+                if (mapPreview) {
+                    // Mostrar um mapa padrão de São Paulo como exemplo
+                    const defaultLat = -23.5505;
+                    const defaultLng = -46.6333;
+                    
+                    // Limpar o conteúdo anterior
+                    mapPreview.innerHTML = '';
+                    mapPreview.style.height = '200px';
+                    
+                    // Inicializar o mapa com localização padrão
+                    map = L.map(mapPreview).setView([defaultLat, defaultLng], 10);
+                    
+                    // Adicionar camada de tiles do OpenStreetMap
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(map);
+                    
+                    // Adicionar aviso sobre erro de localização
+                    const errorMsg = L.control({position: 'bottomleft'});
+                    errorMsg.onAdd = function(map) {
+                        const div = L.DomUtil.create('div', 'error-message');
+                        div.innerHTML = '<span style="background-color: rgba(255,59,48,0.8); color: white; padding: 5px 10px; border-radius: 4px; font-size: 12px;"><i class="fas fa-exclamation-triangle"></i> Não foi possível obter sua localização</span>';
+                        return div;
+                    };
+                    errorMsg.addTo(map);
+                }
+                
+                let errorMessage = '';
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        errorMessage = 'Por favor, permita o acesso à sua localização para melhor atendimento.';
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        errorMessage = 'Informações de localização indisponíveis.';
+                        break;
+                    case error.TIMEOUT:
+                        errorMessage = 'Tempo esgotado ao obter localização.';
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        errorMessage = 'Ocorreu um erro desconhecido ao obter localização.';
+                        break;
+                }
+                
+                // Mostrar mensagem de erro sem bloquear a interface
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'alert alert-warning';
+                errorDiv.style.marginTop = '10px';
+                errorDiv.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${errorMessage}`;
+                mapPreview.parentNode.insertBefore(errorDiv, mapPreview.nextSibling);
+            }
+        );
+    } else {
+        console.error('Geolocalização não é suportada por este navegador.');
+        
+        if (mapPreview) {
+            // Mostrar um mapa padrão do Brasil
+            const defaultLat = -15.7801;
+            const defaultLng = -47.9292;
+            
+            // Limpar o conteúdo anterior
+            mapPreview.innerHTML = '';
+            mapPreview.style.height = '200px';
+            
+            // Inicializar o mapa com localização padrão
+            map = L.map(mapPreview).setView([defaultLat, defaultLng], 5);
+            
+            // Adicionar camada de tiles do OpenStreetMap
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            
+            // Adicionar aviso sobre navegador não suportar geolocalização
+            const errorMsg = L.control({position: 'bottomleft'});
+            errorMsg.onAdd = function(map) {
+                const div = L.DomUtil.create('div', 'error-message');
+                div.innerHTML = '<span style="background-color: rgba(255,59,48,0.8); color: white; padding: 5px 10px; border-radius: 4px; font-size: 12px;"><i class="fas fa-exclamation-triangle"></i> Seu navegador não suporta geolocalização</span>';
+                return div;
+            };
+            errorMsg.addTo(map);
+            
+            // Mostrar mensagem de erro sem bloquear a interface
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'alert alert-warning';
+            errorDiv.style.marginTop = '10px';
+            errorDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Seu navegador não suporta geolocalização. Por favor, preencha seu endereço manualmente.';
+            mapPreview.parentNode.insertBefore(errorDiv, mapPreview.nextSibling);
+        }
+        
+        // Alternar para o modo de endereço fixo
+        document.getElementById('localizacaoFixa').checked = true;
+        document.getElementById('localizacaoAtualGroup').style.display = 'none';
+        document.getElementById('localizacaoFixaGroup').style.display = 'block';
+    }
+}
+
+// Função para buscar endereço pelo CEP
+function buscarCepApi() {
+    const cep = document.getElementById('cep').value.replace(/\D/g, '');
+    
+    if (cep.length !== 8) {
+        alert('CEP inválido');
+        return;
+    }
+    
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.erro) {
+                alert('CEP não encontrado');
+                return;
+            }
+            
+            document.getElementById('rua').value = data.logradouro;
+            document.getElementById('bairro').value = data.bairro;
+            document.getElementById('cidade').value = data.localidade;
+            document.getElementById('estado').value = data.uf;
+            
+            // Focar no campo de número após preencher o endereço
+            document.getElementById('numero').focus();
+        })
+        .catch(error => {
+            console.error('Erro ao buscar CEP:', error);
+            alert('Erro ao buscar CEP. Por favor, preencha o endereço manualmente.');
+        });
 }
 
 // Gerar opções de data para os próximos 30 dias

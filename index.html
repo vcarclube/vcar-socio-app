@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
@@ -89,7 +91,7 @@
                     <div class="swiper-slide">
                         <div class="category-item">
                             <div class="category-icon">
-                                <i class="fas fa-car-wash"></i>
+                                <i class="fas fa-shower"></i>
                             </div>
                             <span>Lava Jato</span>
                         </div>
@@ -136,74 +138,8 @@
                 <h2>Serviços Próximos</h2>
                 <span class="view-all">Ver todos</span>
             </div>
-            <div class="services-container">
-                <!-- Serviço 1 -->
-                <div class="service-card">
-                    <div class="service-image">
-                        <img src="https://blog.simplusbr.com/wp-content/uploads/2021/08/Imagem5_branding_served.jpeg" alt="Auto Center Express">
-                        <span class="distance">1.2 km</span>
-                    </div>
-                    <div class="service-info">
-                        <h3>Auto Center Express</h3>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <span>4.8 (120)</span>
-                        </div>
-                        <p class="service-type">Oficina Mecânica • Troca de Óleo</p>
-                        <p class="delivery-time"><i class="fas fa-clock"></i> Disponível agora</p>
-                    </div>
-                </div>
-
-                <!-- Serviço 2 -->
-                <div class="service-card">
-                    <div class="service-image">
-                        <img src="https://www.carrosnovale.com.br/wp-content/uploads/2017/06/Fachada-Automec.jpeg" alt="Lava Jato Premium">
-                        <span class="distance">2.5 km</span>
-                    </div>
-                    <div class="service-info">
-                        <h3>Lava Jato Premium</h3>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <span>4.6 (85)</span>
-                        </div>
-                        <p class="service-type">Lava Jato • Polimento</p>
-                        <p class="delivery-time"><i class="fas fa-clock"></i> Disponível agora</p>
-                    </div>
-                </div>
-
-                <!-- Serviço 3 -->
-                <div class="service-card">
-                    <div class="service-image">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlpxFY8_5RBci20jDqofLuhaUeRUhWNARHY303wyD9QQmEfYEL0FLA_I-AE6wfc8Chrfw&usqp=CAU" alt="João Mecânico">
-                        <span class="distance">3.0 km</span>
-                    </div>
-                    <div class="service-info">
-                        <h3>João Mecânico</h3>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <span>4.9 (210)</span>
-                        </div>
-                        <p class="service-type">Mecânico Autônomo • Atende a domicílio</p>
-                        <p class="delivery-time"><i class="fas fa-clock"></i> Disponível em 30min</p>
-                    </div>
-                </div>
-
-                <!-- Serviço 4 -->
-                <div class="service-card">
-                    <div class="service-image">
-                        <img src="https://source.unsplash.com/random/300x200/?tow,truck" alt="Guincho Rápido">
-                        <span class="distance">5.0 km</span>
-                    </div>
-                    <div class="service-info">
-                        <h3>Guincho Rápido</h3>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <span>4.7 (95)</span>
-                        </div>
-                        <p class="service-type">Guincho • Resgate 24h</p>
-                        <p class="delivery-time"><i class="fas fa-clock"></i> Disponível agora</p>
-                    </div>
-                </div>
+            <div class="services-container" id="featured-services">
+                <!-- Os cards de serviços serão gerados dinamicamente via JavaScript -->
             </div>
         </section>
 
@@ -213,40 +149,8 @@
                 <h2>Mecânicos em Destaque</h2>
                 <span class="view-all">Ver todos</span>
             </div>
-            <div class="services-container">
-                <!-- Mecânico 1 -->
-                <div class="service-card">
-                    <div class="service-image">
-                        <img src="https://source.unsplash.com/random/300x200/?mechanic,worker" alt="Carlos Especialista">
-                        <span class="distance">2.8 km</span>
-                    </div>
-                    <div class="service-info">
-                        <h3>Carlos Especialista</h3>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <span>4.9 (156)</span>
-                        </div>
-                        <p class="service-type">Especialista em Injeção Eletrônica</p>
-                        <p class="delivery-time"><i class="fas fa-clock"></i> Disponível agora</p>
-                    </div>
-                </div>
-
-                <!-- Mecânico 2 -->
-                <div class="service-card">
-                    <div class="service-image">
-                        <img src="https://source.unsplash.com/random/300x200/?auto,technician" alt="Mariana Técnica">
-                        <span class="distance">3.5 km</span>
-                    </div>
-                    <div class="service-info">
-                        <h3>Mariana Técnica</h3>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <span>4.8 (132)</span>
-                        </div>
-                        <p class="service-type">Especialista em Elétrica Automotiva</p>
-                        <p class="delivery-time"><i class="fas fa-clock"></i> Disponível em 15min</p>
-                    </div>
-                </div>
+            <div class="services-container" id="featured-mechanics">
+                <!-- Os cards de mecânicos serão gerados dinamicamente via JavaScript -->
             </div>
         </section>
     </main>
@@ -317,6 +221,97 @@
                             </select>
                         </div>
                     </div>
+                    
+                    <div class="form-group" id="localAtendimentoGroup" style="display: none;">
+                        <label>Local de atendimento</label>
+                        <div class="service-location-options">
+                            <div class="location-option" id="optEstabelecimento">
+                                <input type="radio" id="localEstabelecimento" name="localAtendimento" value="estabelecimento" checked>
+                                <label for="localEstabelecimento" class="location-label">
+                                    <i class="fas fa-store"></i>
+                                    <span>No estabelecimento</span>
+                                </label>
+                            </div>
+                            <div class="location-option" id="optDomicilio">
+                                <input type="radio" id="localDomicilio" name="localAtendimento" value="domicilio">
+                                <label for="localDomicilio" class="location-label">
+                                    <i class="fas fa-home"></i>
+                                    <span>Meu local</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="enderecoDomicilioGroup" style="display: none;">
+                        <div class="form-group" id="localizacaoOpcoes">
+                            <label>Tipo de localização</label>
+                            <div class="service-location-options">
+                                <div class="location-option">
+                                    <input type="radio" id="localizacaoAtual" name="tipoLocalizacao" value="atual" checked>
+                                    <label for="localizacaoAtual" class="location-label">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Localização atual</span>
+                                    </label>
+                                </div>
+                                <div class="location-option">
+                                    <input type="radio" id="localizacaoFixa" name="tipoLocalizacao" value="fixa">
+                                    <label for="localizacaoFixa" class="location-label">
+                                        <i class="fas fa-map-pin"></i>
+                                        <span>Endereço fixo</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="localizacaoAtualGroup" style="display: block;">
+                            <div class="form-group">
+                                <div id="mapPreview" style="height: 150px; background-color: #f0f0f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+                                    <span>Carregando sua localização...</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pontoReferencia">Ponto de referência</label>
+                                    <input type="text" id="pontoReferencia" class="form-control" placeholder="Ex: Próximo ao mercado, portão azul, etc.">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="localizacaoFixaGroup" style="display: none;">
+                            <div class="form-group">
+                                <label for="cep">CEP</label>
+                                <input type="text" id="cep" class="form-control" placeholder="00000-000" maxlength="9">
+                            </div>
+                            <div class="form-group">
+                                <label for="rua">Rua</label>
+                                <input type="text" id="rua" class="form-control" placeholder="Nome da rua">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <label for="numero">Número</label>
+                                    <input type="text" id="numero" class="form-control" placeholder="123">
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="complemento">Complemento</label>
+                                    <input type="text" id="complemento" class="form-control" placeholder="Apto, Bloco, etc">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="bairro">Bairro</label>
+                                <input type="text" id="bairro" class="form-control" placeholder="Nome do bairro">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-8">
+                                    <label for="cidade">Cidade</label>
+                                    <input type="text" id="cidade" class="form-control" placeholder="Nome da cidade">
+                                </div>
+                                <div class="form-group col-4">
+                                    <label for="estado">Estado</label>
+                                    <input type="text" id="estado" class="form-control" placeholder="UF" maxlength="2">
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="latitude">
+                        <input type="hidden" id="longitude">
+                    </div>
                 </form>
             </div>
             <div class="booking-submit-btn">
@@ -333,6 +328,17 @@
     <script src="js/components.js"></script>
     <script src="js/drawer.js"></script>
     <script src="js/navigation.js"></script>
+    <script src="js/establishments.js"></script>
     <script src="js/main.js"></script>
+    <script>
+        // Inicializar a renderização dos estabelecimentos quando o DOM estiver carregado
+        document.addEventListener('DOMContentLoaded', () => {
+            // Renderizar serviços em destaque
+            EstablishmentsModule.renderEstablishments('featured-services');
+            
+            // Renderizar mecânicos em destaque (filtrar por categoria 'Mecânico')
+            EstablishmentsModule.renderEstablishments('featured-mechanics', 'Mecânico');
+        });
+    </script>
 </body>
 </html>
