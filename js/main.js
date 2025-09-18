@@ -1270,6 +1270,14 @@ function closeBookingModal() {
         bookingModal.classList.remove('active');
         document.body.style.overflow = ''; // Restaurar rolagem do fundo
 
+        // Destruir o mapa se existir
+        if (map) {
+            map.remove();
+            map = null;
+            marker = null;
+            console.log('Mapa destruído ao fechar modal');
+        }
+
         // Esconder o indicador de arrasto
         const dragIndicator = document.querySelector('.modal-drag-indicator');
         if (dragIndicator) {
@@ -1445,17 +1453,34 @@ function openBookingModal(serviceCardOrName, serviceType) {
 let map = null;
 let marker = null;
 
+// Função para limpar mensagens de erro anteriores
+function clearPreviousErrorMessages() {
+    // Remover alertas de erro anteriores
+    const previousErrors = document.querySelectorAll('.alert.alert-warning');
+    previousErrors.forEach(function(error) {
+        error.remove();
+    });
+}
+
 function getGeolocation() {
     const mapPreview = document.getElementById('mapPreview');
+    
+    // Limpar mensagens de erro anteriores
+    clearPreviousErrorMessages();
     
     // Destruir o mapa anterior se existir
     if (map) {
         map.remove();
         map = null;
+        marker = null;
+        console.log('Mapa anterior destruído');
     }
     
     if (mapPreview) {
         mapPreview.innerHTML = '<span>Carregando sua localização...</span>';
+        // Garantir que o elemento tenha altura definida para renderização do mapa
+        mapPreview.style.height = '200px';
+        mapPreview.style.backgroundColor = '#f0f0f0';
     }
     
     if (navigator.geolocation) {
@@ -1492,18 +1517,29 @@ function getGeolocation() {
                     mapPreview.innerHTML = '';
                     mapPreview.style.height = '200px';
                     
-                    // Inicializar o mapa
-                    map = L.map(mapPreview).setView([latitude, longitude], 15);
-                    
-                    // Adicionar camada de tiles do OpenStreetMap
-                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    }).addTo(map);
-                    
-                    // Adicionar marcador na localização atual
-                    marker = L.marker([latitude, longitude]).addTo(map)
-                        .bindPopup('Sua localização atual')
-                        .openPopup();
+                    // Pequeno atraso para garantir que o elemento esteja pronto para renderização
+                    setTimeout(function() {
+                        try {
+                            // Inicializar o mapa
+                            map = L.map(mapPreview).setView([latitude, longitude], 15);
+                            
+                            // Adicionar camada de tiles do OpenStreetMap
+                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            }).addTo(map);
+                            
+                            // Adicionar marcador na localização atual
+                            marker = L.marker([latitude, longitude]).addTo(map)
+                                .bindPopup('Sua localização atual')
+                                .openPopup();
+                                
+                            // Forçar atualização do mapa
+                            map.invalidateSize();
+                            console.log('Mapa renderizado com sucesso');
+                        } catch (e) {
+                            console.error('Erro ao renderizar mapa:', e);
+                        }
+                    }, 100); // Pequeno atraso para garantir que o DOM esteja pronto
                 }
             },
             function(error) {
@@ -1519,22 +1555,33 @@ function getGeolocation() {
                     mapPreview.innerHTML = '';
                     mapPreview.style.height = '200px';
                     
-                    // Inicializar o mapa com localização padrão
-                    map = L.map(mapPreview).setView([defaultLat, defaultLng], 10);
-                    
-                    // Adicionar camada de tiles do OpenStreetMap
-                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    }).addTo(map);
-                    
-                    // Adicionar aviso sobre erro de localização
-                    const errorMsg = L.control({position: 'bottomleft'});
-                    errorMsg.onAdd = function(map) {
-                        const div = L.DomUtil.create('div', 'error-message');
-                        div.innerHTML = '<span style="background-color: rgba(255,59,48,0.8); color: white; padding: 5px 10px; border-radius: 4px; font-size: 12px;"><i class="fas fa-exclamation-triangle"></i> Não foi possível obter sua localização</span>';
-                        return div;
-                    };
-                    errorMsg.addTo(map);
+                    // Pequeno atraso para garantir que o elemento esteja pronto para renderização
+                    setTimeout(function() {
+                        try {
+                            // Inicializar o mapa com localização padrão
+                            map = L.map(mapPreview).setView([defaultLat, defaultLng], 10);
+                            
+                            // Adicionar camada de tiles do OpenStreetMap
+                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            }).addTo(map);
+                            
+                            // Adicionar aviso sobre erro de localização
+                            const errorMsg = L.control({position: 'bottomleft'});
+                            errorMsg.onAdd = function(map) {
+                                const div = L.DomUtil.create('div', 'error-message');
+                                div.innerHTML = '<span style="background-color: rgba(255,59,48,0.8); color: white; padding: 5px 10px; border-radius: 4px; font-size: 12px;"><i class="fas fa-exclamation-triangle"></i> Não foi possível obter sua localização</span>';
+                                return div;
+                            };
+                            errorMsg.addTo(map);
+                            
+                            // Forçar atualização do mapa
+                            map.invalidateSize();
+                            console.log('Mapa de erro renderizado com sucesso');
+                        } catch (e) {
+                            console.error('Erro ao renderizar mapa de erro:', e);
+                        }
+                    }, 100); // Pequeno atraso para garantir que o DOM esteja pronto
                 }
                 
                 let errorMessage = '';
@@ -1573,22 +1620,33 @@ function getGeolocation() {
             mapPreview.innerHTML = '';
             mapPreview.style.height = '200px';
             
-            // Inicializar o mapa com localização padrão
-            map = L.map(mapPreview).setView([defaultLat, defaultLng], 5);
-            
-            // Adicionar camada de tiles do OpenStreetMap
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map);
-            
-            // Adicionar aviso sobre navegador não suportar geolocalização
-            const errorMsg = L.control({position: 'bottomleft'});
-            errorMsg.onAdd = function(map) {
-                const div = L.DomUtil.create('div', 'error-message');
-                div.innerHTML = '<span style="background-color: rgba(255,59,48,0.8); color: white; padding: 5px 10px; border-radius: 4px; font-size: 12px;"><i class="fas fa-exclamation-triangle"></i> Seu navegador não suporta geolocalização</span>';
-                return div;
-            };
-            errorMsg.addTo(map);
+            // Pequeno atraso para garantir que o elemento esteja pronto para renderização
+            setTimeout(function() {
+                try {
+                    // Inicializar o mapa com localização padrão
+                    map = L.map(mapPreview).setView([defaultLat, defaultLng], 5);
+                    
+                    // Adicionar camada de tiles do OpenStreetMap
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(map);
+                    
+                    // Adicionar aviso sobre navegador não suportar geolocalização
+                    const errorMsg = L.control({position: 'bottomleft'});
+                    errorMsg.onAdd = function(map) {
+                        const div = L.DomUtil.create('div', 'error-message');
+                        div.innerHTML = '<span style="background-color: rgba(255,59,48,0.8); color: white; padding: 5px 10px; border-radius: 4px; font-size: 12px;"><i class="fas fa-exclamation-triangle"></i> Seu navegador não suporta geolocalização</span>';
+                        return div;
+                    };
+                    errorMsg.addTo(map);
+                    
+                    // Forçar atualização do mapa
+                    map.invalidateSize();
+                    console.log('Mapa de navegador não suportado renderizado com sucesso');
+                } catch (e) {
+                    console.error('Erro ao renderizar mapa para navegador não suportado:', e);
+                }
+            }, 100); // Pequeno atraso para garantir que o DOM esteja pronto
             
             // Mostrar mensagem de erro sem bloquear a interface
             const errorDiv = document.createElement('div');
