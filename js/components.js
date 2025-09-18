@@ -83,7 +83,7 @@ function createHeader() {
     const headerHTML = `
     <header class="header">
         <div class="header-container">
-            <div class="logo">
+            <div class="logo" onclick="window.location.href='index.html'">
                 <img src="img/logo-preto.png" alt="VCarClube Logo">
             </div>
             <div class="location">
@@ -91,7 +91,7 @@ function createHeader() {
                 <span>Sua localização atual</span>
                 <i class="fas fa-chevron-down"></i>
             </div>
-            <div class="user-profile">
+            <div class="user-profile" onclick="window.location.href='profile.html'">
                 <i class="fas fa-user-circle"></i>
             </div>
         </div>
