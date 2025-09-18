@@ -1441,10 +1441,18 @@ function openBookingModal(serviceCardOrName, serviceType) {
 }
 
 // Função para obter a geolocalização do usuário
+// Variáveis globais para o mapa e marcador
+let map = null;
+let marker = null;
+
 function getGeolocation() {
     const mapPreview = document.getElementById('mapPreview');
-    let map = null;
-    let marker = null;
+    
+    // Destruir o mapa anterior se existir
+    if (map) {
+        map.remove();
+        map = null;
+    }
     
     if (mapPreview) {
         mapPreview.innerHTML = '<span>Carregando sua localização...</span>';
