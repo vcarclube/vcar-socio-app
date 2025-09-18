@@ -1598,6 +1598,8 @@ input[type="time"] {
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
     z-index: 1000; /* Menor que o z-index do modal (1500) para ficar abaixo */
     height: 65px;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .nav-item {
@@ -1607,9 +1609,11 @@ input[type="time"] {
     font-size: 11px;
     font-weight: 500;
     color: var(--text-lighter);
-    cursor: pointer;
+    cursor: default;
     transition: var(--transition);
     width: 20%;
+    position: relative;
+    z-index: 1;
 }
 
 .nav-item a {
@@ -1619,6 +1623,74 @@ input[type="time"] {
     text-decoration: none;
     color: inherit;
     width: 100%;
+    /* Remover aparência de link */
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    cursor: default;
+    /* Desativar sublinhado e outros indicadores visuais de link */
+    outline: none;
+    position: relative;
+}
+
+.nav-item a::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border-radius: var(--radius);
+    transition: background-color 0.2s ease;
+}
+
+/* Efeito de ripple para feedback visual */
+.nav-item a::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(0, 167, 76, 0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.nav-item a:active::before {
+    animation: ripple 0.5s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0.5;
+    }
+    100% {
+        width: 200%;
+        height: 200%;
+        opacity: 0;
+    }
+}
+
+.nav-item a:active::after {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.nav-item a:active {
+    transform: scale(0.97);
+}
+
+.nav-item ion-icon {
+    transition: transform 0.2s ease;
+}
+
+.nav-item:hover ion-icon {
+    transform: translateY(-2px);
 }
 
 /* Estilos para página de título */
@@ -2119,6 +2191,7 @@ input[type="time"] {
 
 .nav-item:hover {
     color: var(--primary-color);
+    opacity: 0.9;
 }
 
 .nav-item-center {
