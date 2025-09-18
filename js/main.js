@@ -1753,27 +1753,37 @@ function initLocationService() {
 
     // Inicializar com a localização armazenada (se existir)
     initializeLocation();
+    
+    // Função para obter a localização atual
+    function requestLocation() {
+        // Obter localização atual
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    // Obter o nome da localização a partir das coordenadas
+                    getLocationName(latitude, longitude);
+                },
+                (error) => {
+                    console.error('Erro ao obter localização:', error);
+                    showNotification('Não foi possível obter sua localização.');
+                }
+            );
+        } else {
+            showNotification('Geolocalização não é suportada neste navegador.');
+        }
+    }
+    
+    // Solicitar localização automaticamente ao carregar a página
+    // Verificar se a localização está expirada ou não existe
+    if (isLocationExpired() || !loadLocation()) {
+        // Se estiver expirada ou não existir, solicitar nova localização
+        requestLocation();
+    }
 
     // Verificar se o elemento locationElement existe antes de adicionar o event listener
     if (locationElement) {
-        locationElement.addEventListener('click', () => {
-            // Obter localização atual
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        const { latitude, longitude } = position.coords;
-                        // Obter o nome da localização a partir das coordenadas
-                        getLocationName(latitude, longitude);
-                    },
-                    (error) => {
-                        console.error('Erro ao obter localização:', error);
-                        showNotification('Não foi possível obter sua localização.');
-                    }
-                );
-            } else {
-                showNotification('Geolocalização não é suportada neste navegador.');
-            }
-        });
+        locationElement.addEventListener('click', requestLocation);
     }
 }
 
