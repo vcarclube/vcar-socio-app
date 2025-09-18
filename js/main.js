@@ -8,11 +8,29 @@ const bookingForm = document.getElementById('bookingForm');
 const navItems = document.querySelectorAll('.nav-item');
 const searchInput = document.querySelector('.search-bar input');
 
+// Função para prevenir zoom em dispositivos móveis
+function preventZoom() {
+    document.addEventListener('touchstart', function(event) {
+        if (event.touches.length > 1) {
+            event.preventDefault();
+        }
+    }, { passive: false });
+    
+    document.addEventListener('touchmove', function(event) {
+        if (event.scale !== 1) {
+            event.preventDefault();
+        }
+    }, { passive: false });
+}
+
 // Inicialização
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM carregado');
     console.log('Modal:', document.getElementById('add-vehicle-offcanvas'));
     console.log('Botão:', document.querySelector('.add-vehicle-btn'));
+    
+    // Prevenir zoom em dispositivos móveis
+    preventZoom();
     
     // Inserir componentes reutilizáveis
     if (typeof Components !== 'undefined') {
