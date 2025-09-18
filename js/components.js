@@ -84,7 +84,7 @@ function createHeader() {
     <header class="header">
         <div class="header-container">
             <div class="logo">
-                <img src="img/logo.png" alt="VCarClube Logo">
+                <img src="img/logo-preto.png" alt="VCarClube Logo">
             </div>
             <div class="location">
                 <i class="fas fa-map-marker-alt"></i>
